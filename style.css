@@ -27,6 +27,7 @@ html {
 
 .game-container {
   max-width: 100rem;
+  min-width: 80rem;
   width: 100%;
   min-height: 50rem;
   height: 75vh;
@@ -40,8 +41,57 @@ html {
   flex-basis: 50%;
   flex-direction: column;
   align-items: center;
-  padding: 5rem;
-  background-color: rgba(255, 255, 255, 0.4);
+  padding: 9rem;
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.player-card_active {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.player-card__title {
+  font-size: 4rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  word-spacing: 2px;
+  font-weight: 300;
+}
+
+.player-card_active .player-card__title {
+  font-weight: 700;
+}
+
+.player-card__total-score {
+  font-size: 8rem;
+  font-weight: 300;
+  color: #c7365f;
+  margin-bottom: auto;
+}
+
+.player-card__current {
+  padding: 2rem;
+  background-color: #c7365f;
+  border-radius: 9px;
+  color: #fff;
+  width: 50%;
+  text-align: center;
+  transition: all 0.75s;
+  opacity: 0.8;
+}
+
+.player-card_active .player-card__current {
+  opacity: 1;
+}
+
+.player-card__card__current-label {
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  font-size: 1.7rem;
+  color: #ddd;
+}
+
+.player-card__current-score {
+  font-size: 3.5rem;
 }
 
 .btn {
@@ -72,13 +122,22 @@ html {
 }
 
 .btn_type_new-game {
-  top: 20%;
+  top: 25%;
 }
 
 .btn_type_roll {
-  top: 60%;
+  top: 65%;
 }
 
 .btn_type_hold {
-  top: 70%;
+  top: 75%;
+}
+
+.dice {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  left: 50%;
+  top: 50%;
+  height: 10rem;
+  box-shadow: 0 2rem 5rem rgba(0, 0, 0, 0.2);
 }
