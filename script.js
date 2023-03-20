@@ -18,10 +18,8 @@ const player2TotalEl = playerCards[1].querySelector(
 );
 
 let isFirstPlayer = true;
-let player1Total = 0;
-let player1Current = 0;
-let player2Total = 0;
-let player2Current = 0;
+let scores = [0, 0];
+let activeScore = 0;
 
 const getRandomDice = () => {
   const randomNum = Math.ceil(Math.random() * 6);
@@ -45,20 +43,20 @@ rollBtn.addEventListener('click', () => {
   const randomNum = getRandomDice();
   if (isFirstPlayer) {
     if (randomNum !== 1) {
-      player1Current += randomNum;
-      setText(player1CurrentEl, player1Current);
+      activeScore += randomNum;
+      setText(player1CurrentEl, activeScore);
     } else {
-      player1Current = 0;
-      setText(player1CurrentEl, player1Current);
+      activeScore = 0;
+      setText(player1CurrentEl, activeScore);
       switchPlayer();
     }
   } else {
     if (randomNum !== 1) {
-      player2Current += randomNum;
-      setText(player2CurrentEl, player2Current);
+      activeScore += randomNum;
+      setText(player2CurrentEl, activeScore);
     } else {
-      player2Current = 0;
-      setText(player2CurrentEl, player2Current);
+      activeScore = 0;
+      setText(player2CurrentEl, activeScore);
       switchPlayer();
     }
   }
@@ -66,26 +64,25 @@ rollBtn.addEventListener('click', () => {
 
 holdBtn.addEventListener('click', () => {
   if (isFirstPlayer) {
-    player1Total += player1Current;
+    scores[0] += activeScore;
     setText(player1CurrentEl, 0);
-    setText(player1TotalEl, player1Total);
+    setText(player1TotalEl, scores[0]);
   } else {
-    player2Total += player2Current;
+    scores[1] += activeScore;
     setText(player2CurrentEl, 0);
-    setText(player2TotalEl, player2Total);
+    setText(player2TotalEl, scores[1]);
   }
   switchPlayer();
+  diceEl.style.visibility = 'hidden';
 });
 
 newGameBtn.addEventListener('click', () => {
-  player1Current = 0;
-  player1Total = 0;
-  player2Current = 0;
-  player2Total = 0;
-  setText(player1CurrentEl, player1Current);
-  setText(player1TotalEl, player1Total);
-  setText(player2CurrentEl, player2Current);
-  setText(player2TotalEl, player2Total);
+  activeScore = 0;
+  scores = [0, 0];
+  setText(player1CurrentEl, 0);
+  setText(player1TotalEl, 0);
+  setText(player2CurrentEl, 0);
+  setText(player2TotalEl, 0);
   if (!isFirstPlayer) {
     switchPlayer();
   }
