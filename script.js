@@ -25,6 +25,7 @@ let player2Current = 0;
 
 const getRandomDice = () => {
   const randomNum = Math.ceil(Math.random() * 6);
+  diceEl.style.visibility = 'visible';
   diceEl.src = `dice-${randomNum}.png`;
   return randomNum;
 };
@@ -88,4 +89,5 @@ newGameBtn.addEventListener('click', () => {
   if (!isFirstPlayer) {
     switchPlayer();
   }
+  diceEl.style.visibility = 'hidden';
 });
