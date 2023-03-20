@@ -17,7 +17,7 @@ const player2TotalEl = playerCards[1].querySelector(
   '.player-card__total-score'
 );
 
-let isFirstPlayer = true;
+let activePlayer = 0;
 let scores = [0, 0];
 let activeScore = 0;
 
@@ -29,7 +29,7 @@ const getRandomDice = () => {
 };
 
 const switchPlayer = () => {
-  isFirstPlayer = !isFirstPlayer;
+  activePlayer = activePlayer === 0 ? 1 : 0;
   playerCards.forEach(playerEl => {
     playerEl.classList.toggle('player-card_active');
   });
@@ -41,37 +41,30 @@ const setText = (el, text) => {
 
 rollBtn.addEventListener('click', () => {
   const randomNum = getRandomDice();
-  if (isFirstPlayer) {
-    if (randomNum !== 1) {
-      activeScore += randomNum;
-      setText(player1CurrentEl, activeScore);
-    } else {
-      activeScore = 0;
-      setText(player1CurrentEl, activeScore);
-      switchPlayer();
-    }
+  const currentEl = document.querySelector(
+    `.player-card__current-score_player_${activePlayer}`
+  );
+  if (randomNum !== 1) {
+    activeScore += randomNum;
+    setText(currentEl, activeScore);
   } else {
-    if (randomNum !== 1) {
-      activeScore += randomNum;
-      setText(player2CurrentEl, activeScore);
-    } else {
-      activeScore = 0;
-      setText(player2CurrentEl, activeScore);
-      switchPlayer();
-    }
+    activeScore = 0;
+    setText(currentEl, activeScore);
+    switchPlayer();
   }
 });
 
 holdBtn.addEventListener('click', () => {
-  if (isFirstPlayer) {
-    scores[0] += activeScore;
-    setText(player1CurrentEl, 0);
-    setText(player1TotalEl, scores[0]);
-  } else {
-    scores[1] += activeScore;
-    setText(player2CurrentEl, 0);
-    setText(player2TotalEl, scores[1]);
-  }
+  const currentEl = document.querySelector(
+    `.player-card__current-score_player_${activePlayer}`
+  );
+  const totalEl = document.querySelector(
+    `.player-card__total-score_player_${activePlayer}`
+  );
+  scores[activePlayer] += activeScore;
+  setText(currentEl, 0);
+  setText(totalEl, scores[activePlayer]);
+
   switchPlayer();
   diceEl.style.visibility = 'hidden';
 });
