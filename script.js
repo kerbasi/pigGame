@@ -17,10 +17,38 @@ const player2TotalEl = playerCards[1].querySelector(
   '.player-card__total-score'
 );
 
-let activePlayer = 0;
-let scores = [0, 0];
-let activeScore = 0;
-let playing = true;
+let activePlayer;
+let scores;
+let activeScore;
+let playing;
+
+const setText = (el, text) => {
+  el.textContent = text;
+};
+
+const init = () => {
+  if (activePlayer === 1) {
+    switchPlayer();
+  }
+  activePlayer = 0;
+  scores = [0, 0];
+  activeScore = 0;
+  playing = true;
+
+  setText(player1CurrentEl, 0);
+  setText(player1TotalEl, 0);
+  setText(player2CurrentEl, 0);
+  setText(player2TotalEl, 0);
+  if (document.querySelector(`.player--winner`)) {
+    document
+      .querySelector(`.player--winner`)
+      .classList.remove('player--winner');
+  }
+
+  diceEl.style.visibility = 'hidden';
+};
+
+init();
 
 const getRandomDice = () => {
   const randomNum = Math.ceil(Math.random() * 6);
@@ -34,10 +62,6 @@ const switchPlayer = () => {
   playerCards.forEach(playerEl => {
     playerEl.classList.toggle('player-card_active');
   });
-};
-
-const setText = (el, text) => {
-  el.textContent = text;
 };
 
 rollBtn.addEventListener('click', () => {
@@ -82,17 +106,4 @@ holdBtn.addEventListener('click', () => {
   }
 });
 
-newGameBtn.addEventListener('click', () => {
-  activeScore = 0;
-  scores = [0, 0];
-  setText(player1CurrentEl, 0);
-  setText(player1TotalEl, 0);
-  setText(player2CurrentEl, 0);
-  setText(player2TotalEl, 0);
-  document.querySelector(`.player--winner`).classList.remove('player--winner');
-  if (activePlayer === 1) {
-    switchPlayer();
-  }
-  diceEl.style.visibility = 'hidden';
-  playing = true;
-});
+newGameBtn.addEventListener('click', init);
