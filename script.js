@@ -58,26 +58,28 @@ rollBtn.addEventListener('click', () => {
 });
 
 holdBtn.addEventListener('click', () => {
-  const currentEl = document.querySelector(
-    `.player-card__current-score_player_${activePlayer}`
-  );
-  const totalEl = document.querySelector(
-    `.player-card__total-score_player_${activePlayer}`
-  );
+  if (playing) {
+    const currentEl = document.querySelector(
+      `.player-card__current-score_player_${activePlayer}`
+    );
+    const totalEl = document.querySelector(
+      `.player-card__total-score_player_${activePlayer}`
+    );
 
-  scores[activePlayer] += activeScore;
-  if (scores[activePlayer] >= 20) {
-    document
-      .querySelector(`.player-card_player_${activePlayer}`)
-      .classList.add('player--winner');
-    playing = false;
+    scores[activePlayer] += activeScore;
+    if (scores[activePlayer] >= 20) {
+      document
+        .querySelector(`.player-card_player_${activePlayer}`)
+        .classList.add('player--winner');
+      playing = false;
+    }
+
+    setText(currentEl, 0);
+    setText(totalEl, scores[activePlayer]);
+    activeScore = 0;
+    switchPlayer();
+    diceEl.style.visibility = 'hidden';
   }
-
-  setText(currentEl, 0);
-  setText(totalEl, scores[activePlayer]);
-  activeScore = 0;
-  switchPlayer();
-  diceEl.style.visibility = 'hidden';
 });
 
 newGameBtn.addEventListener('click', () => {
